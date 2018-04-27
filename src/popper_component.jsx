@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import React from "react";
 import PropTypes from "prop-types";
-import { Manager, Target, Popper } from "react-popper";
+import { Manager, Reference, Popper } from "react-popper";
 
 export const popperPlacementPositions = [
   "auto",
@@ -29,6 +29,7 @@ export default class PopperComponent extends React.Component {
     popperModifiers: PropTypes.object, // <datepicker/> props
     popperPlacement: PropTypes.oneOf(popperPlacementPositions), // <datepicker/> props
     popperContainer: PropTypes.func,
+    positionFixed: PropTypes.bool, // <datepicker/> props
     targetComponent: PropTypes.element
   };
 
@@ -53,6 +54,7 @@ export default class PopperComponent extends React.Component {
       popperComponent,
       popperModifiers,
       popperPlacement,
+      positionFixed,
       targetComponent
     } = this.props;
 
@@ -62,11 +64,15 @@ export default class PopperComponent extends React.Component {
       const classes = classnames("react-datepicker-popper", className);
       popper = (
         <Popper
-          className={classes}
           modifiers={popperModifiers}
           placement={popperPlacement}
+          positionFixed={positionFixed}
         >
-          {popperComponent}
+          {({ ref, style }) => (
+            <div ref={ref} style={style} className={classes}>
+              {popperComponent}
+            </div>
+          )}
         </Popper>
       );
     }
@@ -77,7 +83,13 @@ export default class PopperComponent extends React.Component {
 
     return (
       <Manager>
-        <Target className="react-datepicker-wrapper">{targetComponent}</Target>
+        <Reference>
+          {({ ref }) => (
+            <div className="react-datepicker-wrapper" ref={ref}>
+              {targetComponent}
+            </div>
+          )}
+        </Reference>
         {popper}
       </Manager>
     );

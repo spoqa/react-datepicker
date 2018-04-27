@@ -20,6 +20,7 @@ import DisabledKeyboardNavigation from "./examples/disabled_keyboard_navigation"
 import ClearInput from "./examples/clear_input";
 import OnBlurCallbacks from "./examples/on_blur_callbacks";
 import ConfigurePopper from "./examples/configurePopper";
+import PopperPositionFixed from "./examples/popperPositionFixed";
 import DateRange from "./examples/date_range";
 import DateRangeWithShowDisabledNavigation from "./examples/date_range_with_show_disabled_navigation";
 import TabIndex from "./examples/tab_index";
@@ -171,6 +172,10 @@ export default class exampleComponents extends React.Component {
     {
       title: "Configure Popper Properties",
       component: <ConfigurePopper />
+    },
+    {
+      title: "positionFixed Popper",
+      component: <PopperPositionFixed />
     },
     {
       title: "Portal version",
