@@ -68,8 +68,13 @@ export default class PopperComponent extends React.Component {
           placement={popperPlacement}
           positionFixed={positionFixed}
         >
-          {({ ref, style }) => (
-            <div ref={ref} style={style} className={classes}>
+          {({ ref, style, placement }) => (
+            <div
+              ref={ref}
+              style={style}
+              className={classes}
+              data-placement={placement}
+            >
               {popperComponent}
             </div>
           )}
