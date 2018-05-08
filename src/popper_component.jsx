@@ -2,6 +2,7 @@ import classnames from "classnames";
 import React from "react";
 import PropTypes from "prop-types";
 import { Manager, Reference, Popper } from "react-popper";
+import { Portal } from "react-portal";
 
 export const popperPlacementPositions = [
   "auto",
@@ -29,6 +30,8 @@ export default class PopperComponent extends React.Component {
     popperModifiers: PropTypes.object, // <datepicker/> props
     popperPlacement: PropTypes.oneOf(popperPlacementPositions), // <datepicker/> props
     popperContainer: PropTypes.func,
+    portal: PropTypes.bool,
+    portalNode: PropTypes.instanceOf(Element),
     positionFixed: PropTypes.bool, // <datepicker/> props
     targetComponent: PropTypes.element
   };
@@ -84,6 +87,10 @@ export default class PopperComponent extends React.Component {
 
     if (this.props.popperContainer) {
       popper = React.createElement(this.props.popperContainer, {}, popper);
+    }
+
+    if (this.props.portal) {
+      popper = <Portal node={this.props.portalNode}>{popper}</Portal>;
     }
 
     return (
