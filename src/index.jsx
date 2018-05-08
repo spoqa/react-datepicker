@@ -134,6 +134,7 @@ export default class DatePicker extends React.Component {
     utcOffset: PropTypes.number,
     value: PropTypes.string,
     weekLabel: PropTypes.string,
+    withModal: PropTypes.bool,
     withPortal: PropTypes.bool,
     yearDropdownItemNumber: PropTypes.number,
     shouldCloseOnSelect: PropTypes.bool,
@@ -166,6 +167,7 @@ export default class DatePicker extends React.Component {
       preventOpenOnFocus: false,
       onYearChange() {},
       monthsShown: 1,
+      withModal: false,
       withPortal: false,
       shouldCloseOnSelect: true,
       showTimeSelect: false,
@@ -290,7 +292,7 @@ export default class DatePicker extends React.Component {
       this.setOpen(false);
     }
     this.props.onClickOutside(event);
-    if (this.props.withPortal) {
+    if (this.props.withModal || this.props.withPortal) {
       event.preventDefault();
     }
   };
@@ -536,7 +538,7 @@ export default class DatePicker extends React.Component {
         showMonthYearDropdown={this.props.showMonthYearDropdown}
         showWeekNumbers={this.props.showWeekNumbers}
         showYearDropdown={this.props.showYearDropdown}
-        withPortal={this.props.withPortal}
+        withPortal={this.props.withModal || this.props.withPortal}
         forceShowMonthNavigation={this.props.forceShowMonthNavigation}
         showDisabledMonthNavigation={this.props.showDisabledMonthNavigation}
         scrollableYearDropdown={this.props.scrollableYearDropdown}
@@ -625,11 +627,11 @@ export default class DatePicker extends React.Component {
   render() {
     const calendar = this.renderCalendar();
 
-    if (this.props.inline && !this.props.withPortal) {
+    if (this.props.inline && !this.props.withModal && !this.props.withPortal) {
       return calendar;
     }
 
-    if (this.props.withPortal) {
+    if (this.props.withModal || this.props.withPortal) {
       return (
         <div>
           {!this.props.inline ? (
