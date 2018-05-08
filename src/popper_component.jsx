@@ -89,7 +89,7 @@ export default class PopperComponent extends React.Component {
       popper = React.createElement(this.props.popperContainer, {}, popper);
     }
 
-    if (this.props.portal) {
+    if (popper && this.props.portal) {
       popper = <Portal node={this.props.portalNode}>{popper}</Portal>;
     }
 
